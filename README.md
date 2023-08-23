@@ -9,7 +9,7 @@ It was built using SQL Developer as DBMS, and so it uses Oracle SQL syntax.
 - `ddl-create.sql` - uses DDL to create tables and add constraints
 - `ddl-drop.sql`- uses DDL to drop tables and constraints
 - `dml-sample-data.sql`- uses DML to fill tables with sample data
-- `queries.sql` - contains ~25 queries for the database
+- `queries.sql` - contains ~25 queries of various complexity
 
 ## Entity-relationship diagram
-//![]()
+![](res/entity-relationship-diagram.png)
