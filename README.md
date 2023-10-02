@@ -2,7 +2,7 @@
 
 ## About
 This repo showcases my end-of-semester database project for the RBD (Relational databases) class.
-It was built using SQL Developer as DBMS, and so it uses Oracle SQL syntax. 
+It was built using SQL Developer as DBMS, and so it uses Oracle SQL syntax. Unfortunately it's made in Polish :P
 
 ## File description
 
