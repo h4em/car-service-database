@@ -1,5 +1,7 @@
 import random
 import cities_info_parse
+import streets_info_parse
+import cars_info_parse
 from datetime import datetime, timedelta
 
 def get_random_city():
@@ -10,9 +12,21 @@ def get_random_city():
     rtype: dict
     '''
     
-    cities = cities_info_parse.get_10_biggest_cities_data()
+    cities = cities_info_parse.get_10_biggest_cities()
     r = random.randint(0, len(cities) - 1)
     return cities[r]
+
+def gen_address():
+    '''
+    Returns a random address, (street name and number).
+
+    return: generated adress.
+    rtype: str
+    '''
+    street_name = streets_info_parse.random_street_name()
+    street_num = str(random.randint(1, 100))
+
+    return street_name + street_num    
 
 def generate_email(name, surname):
     '''
@@ -34,7 +48,7 @@ def generate_email(name, surname):
     
     return name + random_separator() + surname + str(random_int) + '@email.com'
 
-def generate_birth_date():
+def gen_birth_date():
     '''
     Returns a random birth date from range [now - 120 years ago, now - 18 years ago],
     in 'YYYY-MM-DD' format, hyphen separated.
@@ -63,7 +77,7 @@ def random_separator():
     random_int = random.randint(0, len(separators) - 1)
     return separators[random_int]
 
-def generate_phone_num():
+def gen_phone_num():
     result = ''
     for i in range(0, 9):
         if i % 3 == 0 and i != 0:
@@ -71,7 +85,7 @@ def generate_phone_num():
         result += str(random.randint(0, 9))
     return result
 
-def generate_event_date():
+def gen_event_date():
     '''
     Returns a random date from range [date of company establishment, now]. An event could be 
     anything that happens inside the company e.g. a dismissal, completing an order etc. 
@@ -91,15 +105,27 @@ def generate_event_date():
 
     return result.strftime("%Y-%m-%d")
 
+def gen_person():
+    '''
+    id integer
+    name varchar 20
+    surname 20
+    gender int
+    phonenum varchar 9 N
+    email varchar 20 N
+
+    niech zwraca dict ze wszystkim
+    '''
+
 print(generate_email("hubert", "m"))
-print(generate_phone_num())
-print(generate_birth_date())
+print(gen_phone_num())
+print(gen_birth_date())
 print(get_random_city())
-print(generate_event_date())
+print(gen_event_date())
+
+print(cars_info_parse.random_car())
 
 input()
 
-#imiona i nazwiska, wrzucic te jsony do daty
-#license plate -> generator
-#adres -> ulica + numer
+#parser imion
 #pesel -> z gita skrypt pesel pobrany

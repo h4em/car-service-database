@@ -32,5 +32,5 @@ for city in cities_data:
     if city['name'] == 'Warsaw':
         city['name'] = 'Warszawa'
 
-def get_10_biggest_cities_data():
+def get_10_biggest_cities():
     return cities_data

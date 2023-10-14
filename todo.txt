@@ -1,0 +1,7 @@
+generator peselu na podstawie daty urodzenia
+
+generator license plateow
+
+manualnie trzeba bedzie wbic liste stanowisk 
+manualnie service 
+manualnie statusy
