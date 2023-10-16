@@ -11,7 +11,7 @@ with open(path, 'r') as file:
 
 def random_car():
     '''
-    Returns a dict describing a car. Keys are: name, make, model.
+    Returns a dict describing a random car. Keys are: name, make, model.
 
     rtype: dict 
     '''

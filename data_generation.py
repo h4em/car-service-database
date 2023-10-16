@@ -1,20 +1,13 @@
 import random
-import cities_info_parse
-import streets_info_parse
-import cars_info_parse
+import string
+import time
 from datetime import datetime, timedelta
+from pesel import Pesel
 
-def get_random_city():
-    '''
-    Returns a dictionary describing a random city. Keys are: name, province and population.
-
-    return: data about a random city.
-    rtype: dict
-    '''
-    
-    cities = cities_info_parse.get_10_biggest_cities()
-    r = random.randint(0, len(cities) - 1)
-    return cities[r]
+import streets_info_parse
+import cities_info_parse
+import cars_info_parse
+import names_parse
 
 def gen_address():
     '''
@@ -28,7 +21,7 @@ def gen_address():
 
     return street_name + street_num    
 
-def generate_email(name, surname):
+def gen_email(name, surname):
     '''
     Returns email address based on persons name and surname.
 
@@ -46,7 +39,7 @@ def generate_email(name, surname):
 
     random_int = random.randint(0, 999)
     
-    return name + random_separator() + surname + str(random_int) + '@email.com'
+    return name.lower() + random_separator() + surname.lower() + str(random_int) + '@email.com'
 
 def gen_birth_date():
     '''
@@ -71,6 +64,9 @@ def gen_birth_date():
 
 def random_boolean():
     return random.choice([0, 1])
+
+def random_char_uppercase():
+    return random.choice(string.ascii_uppercase)
 
 def random_separator():
     separators = ['', '-', '_']
@@ -103,29 +99,95 @@ def gen_event_date():
 
     result = establishment_date + timedelta(days=random_num_of_days)
 
-    return result.strftime("%Y-%m-%d")
+    return result.strftime('%Y-%m-%d')
+
+def gen_later_date(date):
+    '''
+    Returns a random date between param date and now, 'YYYY-MM-DD' format, hyphen separated.
+
+    return: generated date
+    rtype: str
+    '''
+    try:
+        datetime_date = datetime.strptime(date, '%Y-%m-%d')
+    except ValueError:
+        raise TypeError("Invalid input. Arg must be in of str type.")
+
+    current_date = datetime.now()
+    
+    time_between = current_date - datetime_date
+    random_num_of_days = random.randint(0, time_between.days)
+
+    result = datetime_date + timedelta(days=random_num_of_days)
+
+    return result.strftime('%Y-%m-%d')
+
+def gen_license_plate():
+    '''
+    Returns a random license plate in str format. 2 letters, space, then 5 letters/digits.
+
+    return: generated license plate
+    rtype: str
+    '''
+    
+    result = ''
+    for i in range(0, 2):
+        result += random_char_uppercase()
+    
+    result += ' '
+
+    for i in range(0, 5):
+        r = random.randint(0, 100)
+        if r % 2 == 0:
+            result += random_char_uppercase()
+        else:
+            result += str(random.randint(0, 9))
+
+    return result
 
 def gen_person():
     '''
-    id integer
-    name varchar 20
-    surname 20
-    gender int
-    phonenum varchar 9 N
-    email varchar 20 N
-
-    niech zwraca dict ze wszystkim
+    Generates a random person's data.
+    
+    return: dictionary with attributes describing a person:
+        - 'name' (str)
+        - 'surname' (str)
+        - 'gender' (int)
+        - 'birth_date' (str)
+        - 'social_security_num' (str)
+        - 'email' (str)
+        - 'phone_num' (str)
+    
+    rtype: dict
     '''
 
-print(generate_email("hubert", "m"))
-print(gen_phone_num())
-print(gen_birth_date())
-print(get_random_city())
-print(gen_event_date())
+    gender = random_boolean()
+    name = names_parse.get_random_name(gender)
+    surname = names_parse.get_random_surname(gender)
+    email = gen_email(name, surname)
+    phone_num = gen_phone_num()
 
-print(cars_info_parse.random_car())
+    birthdate = gen_birth_date()
+    year, month, day = birthdate.split('-')
+
+    social_security_num = str(Pesel.generate(gender, int(year), int(month), int(day)))
+
+    result = {
+        'name': name, 
+        'surname': surname, 
+        'gender': gender, 
+        'birth_date': birthdate,
+        'social_security_num': social_security_num,
+        'email': email, 
+        'phone_num': phone_num,
+    }
+
+    return result
+
+for i in range(0, 20):
+    person = gen_person()
+    print(person)
+
+    time.sleep(2)
 
 input()
-
-#parser imion
-#pesel -> z gita skrypt pesel pobrany
