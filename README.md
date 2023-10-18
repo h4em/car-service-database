@@ -1,4 +1,4 @@
-# 🔧 Car service company database 🚘
+# 🚘 Car service database 🚘
 
 ## About
 WORK IN PROGRESS
