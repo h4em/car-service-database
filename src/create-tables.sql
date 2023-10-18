@@ -22,7 +22,7 @@ CREATE TABLE City (
 CREATE TABLE Department (
     id int  NOT NULL,
     city_id int  NOT NULL,
-    adress varchar(32)  NOT NULL,
+    address varchar(32)  NOT NULL,
     CONSTRAINT Department_pk PRIMARY KEY (id)
 );
 
@@ -76,7 +76,7 @@ CREATE TABLE Position (
 -- Table: Service
 CREATE TABLE Service (
     id int  NOT NULL,
-    name varchar(32)  NOT NULL,
+    name varchar(48)  NOT NULL,
     price decimal(11,2)  NOT NULL,
     CONSTRAINT Service_pk PRIMARY KEY (id)
 );

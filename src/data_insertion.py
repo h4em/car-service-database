@@ -69,15 +69,8 @@ cursor = connection.cursor()
 # cursor.execute(query, (13, 10, gen_address()))
 # connection.commit()
 
-# #Inserting statuses
-# query = 'INSERT INTO status (id, name) VALUES (%s, %s);'
-# connection.start_transaction()
-# cursor.execute(query, (1, 'COMPLETED'))
-# cursor.execute(query, (2, 'CANCELLED'))
-# cursor.execute(query, (3, 'IN PROGRESS'))
-# connection.commit()
-
 # #Inserting 
+
 
 
 cursor.close()
