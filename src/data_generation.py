@@ -184,3 +184,48 @@ def gen_person():
     }
 
     return result
+
+def get_random_position():
+    positions = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    weights = [0.2, 0.1, 0.5, 0.3, 0.1, 0.1, 0.2, 0.1, 0.3, 0.2, 0.1, 0.1, 0.2, 0.1]
+    return random.choices(positions, weights)[0]
+    # bez ceo i custodiana?
+
+def get_random_department():
+    departments = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    weights = [0.3, 0.2, 0.23, 0.17, 0.16, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+    return random.choices(departments, weights)[0]
+    #return random.choices(positions, weights)[0]
+
+#docs
+def dates_compare(d1, d2):
+    date1 = datetime.strptime(d1, '%Y-%m-%d')
+    date2 = datetime.strptime(d2, '%Y-%m-%d')
+    
+    if date1 > date2:
+        return 1
+    elif date1 < date2:
+        return -1
+    else:
+        return 0
+
+#docs
+def are_18_years_apart(d1, d2):
+
+    date1 = datetime.strptime(d1, '%Y-%m-%d')
+    date2 = datetime.strptime(d2, '%Y-%m-%d')
+
+    eighteen_years = timedelta(days=365 * 18)
+
+    return date2 - date1 >= eighteen_years
+
+def to_date(date_string):
+    try:
+        # Parse the date string and create a datetime object
+        date_format = "%Y-%m-%d"
+        date_datetime = datetime.strptime(date_string, date_format)
+        # Extract the date portion and return it as a datetime.date object
+        return date_datetime.date()
+    except ValueError:
+        # Handle invalid date strings or other exceptions
+        return None

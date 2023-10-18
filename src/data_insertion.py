@@ -1,9 +1,10 @@
 import time
+import random
 
 import mysql.connector
 from db_config import DB_CONFIG
-from data_generation import gen_person
-from data_generation import gen_address
+from data_generation import gen_person, gen_address, get_random_department, get_random_position, gen_birth_date, gen_event_date, gen_later_date, are_18_years_apart, to_date
+from pesel import Pesel
 from cities_info_parse import get_10_biggest_cities
 
 try:
@@ -69,9 +70,49 @@ cursor = connection.cursor()
 # cursor.execute(query, (13, 10, gen_address()))
 # connection.commit()
 
-# #Inserting 
+# #Inserting employees
+# connection.start_transaction()
+# query = 'SELECT * FROM person;'
+# cursor.execute(query)
 
+# persons = cursor.fetchall()
 
+# person_ids = set()
+# for i in range(0, len(persons)):
+#     person_ids.add(i)
+
+# for i in range(0, 251):
+#     random_id = random.choice(list(person_ids))
+    
+#     person = persons[random_id]
+#     gender = person[3]
+#     birthdate = gen_birth_date()
+#     time.sleep(1)
+#     year, month, day = birthdate.split('-')
+#     social_security_num = str(Pesel.generate(gender, int(year), int(month), int(day)))
+
+#     position = get_random_position()
+#     department = get_random_department()
+#     emp_date = gen_event_date()
+
+#     if not are_18_years_apart(birthdate, emp_date):
+#         continue
+
+#     nums = [0, 1]
+#     weights = [0.87, 0.13]
+#     random_number = random.choices(nums, weights)[0]
+
+#     leave_date = None
+#     if random_number == 1:
+#         leave_date = to_date(gen_later_date(emp_date))
+
+#     query = 'INSERT INTO employee (id, position_id, department_id, social_security_num, employment_date, leave_date) VALUES (%s, %s, %s, %s, %s, %s);'
+#     values = (person[0], position, department, social_security_num, to_date(emp_date), leave_date)
+
+#     cursor.execute(query, values)
+
+#     person_ids.remove(random_id)
+# connection.commit()
 
 cursor.close()
 connection.close()

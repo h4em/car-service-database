@@ -1,27 +1,27 @@
--- INSERT INTO status (id, name) 
--- VALUES 
---     (1, 'COMPLETED'), 
---     (2, 'CANCELLED'), 
---     (3, 'IN PROGRESS');
+INSERT INTO status (id, name) 
+VALUES 
+    (1, 'COMPLETED'), 
+    (2, 'CANCELLED'), 
+    (3, 'IN PROGRESS');
 
--- INSERT INTO position (id, name)
--- VALUES 
---     (1, 'CEO'),
---     (2, 'Service technician'),
---     (3, 'Service advisor'),
---     (4, 'Car mechanic'),
---     (5, 'Car body technician'),
---     (6, 'Quality control inspector'),
---     (7, 'Parts manager'),
---     (8, 'Service manager'),
---     (9, 'Diagnostic technician'),
---     (10, 'Detailer'),
---     (11, 'Dispatcher'),
---     (12, 'Sales and marketing specialist'),
---     (13, 'Administrative assistant'),
---     (14, 'Towing operator'),
---     (15, 'Software technician'),
---     (16, 'Custodian');
+INSERT INTO position (id, name)
+VALUES 
+    (1, 'CEO'),
+    (2, 'Service technician'),
+    (3, 'Service advisor'),
+    (4, 'Car mechanic'),
+    (5, 'Car body technician'),
+    (6, 'Quality control inspector'),
+    (7, 'Parts manager'),
+    (8, 'Service manager'),
+    (9, 'Diagnostic technician'),
+    (10, 'Detailer'),
+    (11, 'Dispatcher'),
+    (12, 'Sales and marketing specialist'),
+    (13, 'Administrative assistant'),
+    (14, 'Towing operator'),
+    (15, 'Software technician'),
+    (16, 'Custodian');
 
 INSERT INTO service (id, name, price) 
 VALUES 
@@ -45,3 +45,30 @@ VALUES
     (18, 'Windshield repair', 60.00),
     (19, 'Windshield replacement', 250.00),
     (20, 'Towing service (per km)', 5.00);
+
+-- INSERT INTO employee (id, position_id, department_id, social_security_num, employment_date, leave_date)
+-- VALUES 
+--     (846, 1, 1, '79062820064', '2002-01-28', NULL),
+--     (6, 16, 1, '22122236752', '2020-01-18', '2023-05-11'),
+--     (8, 16, 1, '44061980136', '2006-09-27', NULL),
+--     (11, 16, 1, '33050713572', '2012-06-25', NULL),
+--     (13, 16, 1, '67043014674', '2004-03-01', NULL),
+--     (14, 16, 2, '78090914183', '2021-09-22', NULL),
+--     (15, 16, 2, '45050251600', '2018-07-24', NULL),
+--     (17, 16, 2, '24111429248', '2004-09-25', NULL),
+--     (18, 16, 2, '46073189200', '2012-04-06', '2018-10-29'),
+--     (19, 16, 3, '87070432090', '2018-01-29', '2020-04-06'),
+--     (20, 16, 3, '27042269956', '2012-12-20', NULL),
+--     (22, 16, 3, '00271898607', '2021-01-17', '2022-01-27'),
+--     (23, 16, 4, '30071049547', '2010-12-08', '2019-10-18'),
+--     (24, 16, 4, '54011940473', '2008-12-04', '2013-11-07'),
+--     (25, 16, 5, '85012950011', '2023-09-18', '2023-10-10'),
+--     (28, 16, 5, '62022041926', '2006-11-15', NULL),
+--     (29, 16, 6, '17062824923', '2003-04-02', NULL),
+--     (30, 16, 7, '52120857552', '2017-08-23', NULL),
+--     (31, 16, 8, '05122284581', '2017-07-04', NULL),
+--     (33, 16, 9, '38061164526', '2016-06-10', NULL),
+--     (35, 16, 10, '97092642447', '2021-12-16', NULL),
+--     (36, 16, 11, '78060360073', '2003-03-13', NULL),
+--     (37, 16, 12, '47070410836', '2002-03-02', NULL),
+--     (38, 16, 13, '21100941493', '2013-11-06', '2019-12-16');
