@@ -11,22 +11,35 @@ surnames_male = []
 surnames_female = []
 
 #Read male names
-with open('res\data\\names_male.json', 'r') as file:
+with open('..\\res\data\\names_male.json', 'r') as file:
     names_male = json.load(file)
 
 #Read female names
-with open('res\data\\names_female.json', 'r') as file:
+with open('..\\res\\data\\names_female.json', 'r') as file:
     names_female = json.load(file)
 
 #Read male surnames
-with open('res\data\surnames_male.json', 'r') as file:
+with open('..\\res\data\surnames_male.json', 'r') as file:
     surnames_male = json.load(file)
 
 #Read female surnames
-with open('res\data\surnames_female.json', 'r') as file:
+with open('..\\res\data\surnames_female.json', 'r') as file:
     surnames_female = json.load(file)
+    
+def random_name(gender):
+    """
+    Generates a random name based on the given gender.
 
-def get_random_name(gender):
+    type gender: int (0 for female, 1 for male)
+
+    raises:
+        TypeError: if 'gender' argument is not of type int.
+        ValueError: if 'gender' argument is not 0 or 1.
+
+    return: randomly selected name
+    rtype: str
+    """
+
     if not isinstance(gender, int):
         raise TypeError('Invalid input. Arg must be of type int.')
     elif not gender == 1 and not gender == 0:
@@ -39,7 +52,20 @@ def get_random_name(gender):
         r = random.randint(0, len(names_male) - 1)
         return names_male[r]
     
-def get_random_surname(gender):
+def random_surname(gender):
+    """
+    Generates a random surname based on the given gender.
+
+    type gender: int (0 for female, 1 for male)
+
+    raises:
+        TypeError: if 'gender' argument is not of type int.
+        ValueError: if 'gender' argument is not 0 or 1.
+
+    return: randomly selected surname
+    rtype: str
+    """
+    
     if not isinstance(gender, int):
         raise TypeError("Invalid input. Arg must be of type int.")
     elif not gender == 1 and not gender == 0:

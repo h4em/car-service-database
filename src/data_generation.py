@@ -1,29 +1,28 @@
 import random
 import string
 import time
+
 from datetime import datetime, timedelta
 from pesel import Pesel
 
-import streets_info_parse
-import cities_info_parse
-import cars_info_parse
-import names_parse
+from streets_info_parse import random_street_name
+from names_parse import random_name, random_surname
 
 def gen_address():
     '''
     Returns a random address, (street name and number).
 
-    return: generated adress.
+    return: generated address
     rtype: str
     '''
-    street_name = streets_info_parse.random_street_name()
+    street_name = random_street_name()
     street_num = str(random.randint(1, 100))
 
     return street_name + street_num    
 
 def gen_email(name, surname):
     '''
-    Returns email address based on persons name and surname.
+    Returns email address based on person's name and surname.
 
     param name: person's name
     type name: str
@@ -44,7 +43,7 @@ def gen_email(name, surname):
 def gen_birth_date():
     '''
     Returns a random birth date from range [now - 120 years ago, now - 18 years ago],
-    in 'YYYY-MM-DD' format, hyphen separated.
+    'YYYY-MM-DD' format, hyphen separated.
 
     return: generated birth date
     rtype: str
@@ -87,7 +86,7 @@ def gen_event_date():
     anything that happens inside the company e.g. a dismissal, completing an order etc. 
     'YYYY-MM-DD' format, hyphen separated.
 
-    return: random event date
+    return: generated event date
     rtype: str
     '''
     establishment_date = datetime(year=2002, month=1, day=28)
@@ -105,6 +104,8 @@ def gen_later_date(date):
     '''
     Returns a random date between param date and now, 'YYYY-MM-DD' format, hyphen separated.
 
+    type date: str
+    
     return: generated date
     rtype: str
     '''
@@ -124,7 +125,7 @@ def gen_later_date(date):
 
 def gen_license_plate():
     '''
-    Returns a random license plate in str format. 2 letters, space, then 5 letters/digits.
+    Returns a random license plate. 2 letters, space, then 5 letters/digits.
 
     return: generated license plate
     rtype: str
@@ -162,8 +163,8 @@ def gen_person():
     '''
 
     gender = random_boolean()
-    name = names_parse.get_random_name(gender)
-    surname = names_parse.get_random_surname(gender)
+    name = random_name(gender)
+    surname = random_surname(gender)
     email = gen_email(name, surname)
     phone_num = gen_phone_num()
 
@@ -188,6 +189,6 @@ for i in range(0, 20):
     person = gen_person()
     print(person)
 
-    time.sleep(2)
+    time.sleep(1)
 
 input()

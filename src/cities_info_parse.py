@@ -3,7 +3,7 @@
 import json
 from unidecode import unidecode
 
-path = 'res\data\cities.json'
+path = '..\\res\\data\\cities.json'
 
 cities_data = []
 

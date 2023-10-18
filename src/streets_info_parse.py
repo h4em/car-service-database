@@ -3,7 +3,7 @@
 import json
 import random
 
-path = 'res\data\streets.json'
+path = '..\\res\\data\\streets.json'
 with open(path, 'r') as file:
     streets = json.load(file)
 

@@ -4,15 +4,20 @@
 import json
 import random
 
-path = 'res\data\cars.json'
+path = '..\\res\\data\\cars.json'
 
 with open(path, 'r') as file:
     cars = json.load(file)
 
 def random_car():
     '''
-    Returns a dict describing a random car. Keys are: name, make, model.
+    Returns data about a random car.
 
+    return: dictionary with attributes describing a car:
+        - 'year' (int)
+        - 'make' (str)
+        - 'model' (str)
+        
     rtype: dict 
     '''
     r = random.randint(0, len(cars) - 1)
