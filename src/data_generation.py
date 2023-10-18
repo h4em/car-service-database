@@ -18,7 +18,7 @@ def gen_address():
     street_name = random_street_name()
     street_num = str(random.randint(1, 100))
 
-    return street_name + street_num    
+    return street_name + ' ' + street_num    
 
 def gen_email(name, surname):
     '''
@@ -184,11 +184,3 @@ def gen_person():
     }
 
     return result
-
-for i in range(0, 20):
-    person = gen_person()
-    print(person)
-
-    time.sleep(1)
-
-input()
