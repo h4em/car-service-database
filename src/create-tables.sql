@@ -41,8 +41,8 @@ CREATE TABLE Employee (
 CREATE TABLE `Order` (
     id int  NOT NULL,
     car_id int  NOT NULL,
-    startDate date  NULL,
-    endDate date  NULL,
+    start_date date  NULL,
+    end_date date  NULL,
     status int  NOT NULL,
     CONSTRAINT Order_pk PRIMARY KEY (id)
 );

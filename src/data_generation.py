@@ -229,3 +229,36 @@ def to_date(date_string):
     except ValueError:
         # Handle invalid date strings or other exceptions
         return None
+    
+def gen_2023_date():
+    start_date = datetime(year=2023, month=1, day=1)
+    current_date = datetime.now()
+
+    time_between = current_date - start_date
+
+    random_num_of_days = random.randint(0, time_between.days)
+
+    result = start_date + timedelta(days=random_num_of_days)
+
+    return result.strftime('%Y-%m-%d')
+
+
+def gen_order_end_date(start_date):
+    '''
+    Returns a random date between param date 4 months later, 'YYYY-MM-DD' format, hyphen separated.
+
+    type date: str
+    
+    return: generated date
+    rtype: str
+    '''
+    try:
+        start_date_datetime = datetime.strptime(start_date, '%Y-%m-%d')
+    except ValueError:
+        raise TypeError("Invalid input. Arg must be in of str type.")
+    
+    random_num_of_days = random.randint(1, 120)
+
+    result = start_date_datetime + timedelta(days=random_num_of_days)
+
+    return result.strftime('%Y-%m-%d')
