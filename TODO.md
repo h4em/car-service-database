@@ -12,7 +12,5 @@
 
 - zdocsowac niektore nowe funkcje, data insertion moze uprzatnac troche
 
-- zmienic diagram na vertabelo, zle nazwy dla dat w order camelcase, w creacie zmienione
-
 inserty:
-car, order, order_service_emp
+order_service_emp
