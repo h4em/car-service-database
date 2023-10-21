@@ -165,11 +165,3 @@ WHERE idTyp = (
     ORDER BY COUNT(*) DESC
     FETCH FIRST 1 ROW ONLY
 );
-
-
-
-
-
-
-
-

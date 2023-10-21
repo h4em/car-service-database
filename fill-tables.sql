@@ -2,7 +2,8 @@ INSERT INTO status (id, name)
 VALUES 
     (1, 'COMPLETED'), 
     (2, 'CANCELLED'), 
-    (3, 'IN PROGRESS');
+    (3, 'IN PROGRESS'),
+    (4, 'WAITING');
 
 INSERT INTO position (id, name)
 VALUES 

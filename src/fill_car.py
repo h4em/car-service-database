@@ -4,7 +4,7 @@ import random
 import mysql.connector
 from db_config import DB_CONFIG
 from data_generation import gen_license_plate
-from cars_info_parse import random_car
+from cars_parse import random_car
 
 try:
     connection = mysql.connector.connect(**DB_CONFIG)

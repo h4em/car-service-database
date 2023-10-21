@@ -5,7 +5,7 @@ import time
 from datetime import datetime, timedelta
 from pesel import Pesel
 
-from streets_info_parse import random_street_name
+from streets_parse import random_street_name
 from names_parse import random_name, random_surname
 
 def gen_address():

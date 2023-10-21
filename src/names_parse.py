@@ -69,7 +69,7 @@ def random_surname(gender):
     if not isinstance(gender, int):
         raise TypeError("Invalid input. Arg must be of type int.")
     elif not gender == 1 and not gender == 0:
-        raise ValueError('Invalid input. Correct values are: [0, 1]')
+        raise ValueError('Invalid input. Accepted values are: [0, 1]')
     
     if gender == 0:
         r = random.randint(0, len(surnames_female) - 1)
