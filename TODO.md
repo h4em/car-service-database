@@ -12,5 +12,7 @@
 
 - zdocsowac niektore nowe funkcje, data insertion moze uprzatnac troche
 
+- plik insertujacy wszystko od zera trza bedzie zrobic
+
 inserty:
 order_service_emp
