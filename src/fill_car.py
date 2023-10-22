@@ -1,6 +1,3 @@
-import time
-import random
-
 import mysql.connector
 from db_config import DB_CONFIG
 from data_generation import gen_license_plate
@@ -13,52 +10,48 @@ except mysql.connector.Error as err:
 
 cursor = connection.cursor()
 
-# connection.start_transaction()
-# query = 'SELECT id FROM Person WHERE id NOT IN (SELECT id FROM Employee);'
-# cursor.execute(query)
+query = 'SELECT id FROM Person WHERE id NOT IN (SELECT id FROM Employee);'
+cursor.execute(query)
 
-# client_ids = []
+client_ids = []
 
-# rows = cursor.fetchall()
-# for row in rows:
-#     client_ids.append(row[0])
+rows = cursor.fetchall()
+for row in rows:
+    client_ids.append(row[0])
 
-# query = 'INSERT INTO Car (id, owner, license_plate, make, model, year) VALUES(%s, %s, %s, %s, %s, %s);'
+query = 'INSERT INTO Car (id, owner, license_plate, make, model, year) VALUES(%s, %s, %s, %s, %s, %s);'
 
-# for i in range(0, len(client_ids)):
-#     id = i + 1
-#     owner = client_ids[i]
-#     license_plate = gen_license_plate()
+for i in range(0, len(client_ids)):
+    id = i + 1
+    owner = client_ids[i]
+    license_plate = gen_license_plate()
     
-#     car = random_car()
-#     make = car['make']
-#     model = car['model']
-#     year = car['year']
+    car = random_car()
+    make = car['make']
+    model = car['model']
+    year = car['year']
     
-#     values = (id, owner, license_plate, make, model, year)
+    values = (id, owner, license_plate, make, model, year)
+    cursor.execute(query, values)
+connection.commit()
+
+# Generating text for manual insertion in MySQL directly, to make so that there are clients that own
+# multiple cars (for diversity).
+id = 614
+for i in range(0, 14):
+    car = random_car()
     
-#     cursor.execute(query, values)
+    make = car['make']
+    model = car['model']
+    year = car['year']
 
-
-#zeby byli tacy klienci co maja kilka aut
-# id = 614
-# for i in range(0, 14):
-#     car = random_car()
+    if len(make) > 16 or len(model) > 32:
+        continue
     
-#     make = car['make']
-#     model = car['model']
-#     year = car['year']
-
-#     if len(make) > 16 or len(model) > 32:
-#         continue
+    license_plate = gen_license_plate()
     
-#     license_plate = gen_license_plate()
-    
-#     print(f"({id}, own, '{license_plate}', '{make}', '{model}', {year}),")
-#     id += 1
-
-# connection.commit()
-
+    print(f"({id}, own, '{license_plate}', '{make}', '{model}', {year}),")
+    id += 1
 
 cursor.close()
 connection.close()

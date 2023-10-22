@@ -1,6 +1,5 @@
 import random
 import string
-import time
 
 from datetime import datetime, timedelta
 from pesel import Pesel
@@ -40,27 +39,6 @@ def gen_email(name, surname):
     
     return name.lower() + random_separator() + surname.lower() + str(random_int) + '@email.com'
 
-def gen_birth_date():
-    '''
-    Returns a random birth date from range [now - 120 years ago, now - 18 years ago],
-    'YYYY-MM-DD' format, hyphen separated.
-
-    return: generated birth date
-    rtype: str
-    '''
-    current_date = datetime.now()
-    
-    start_date = current_date - timedelta(days=365 * 120) 
-    end_date = current_date - timedelta(days=365 * 18)
-
-    time_between = end_date - start_date
-
-    random_num_of_days = random.randint(0, time_between.days)
-
-    result = start_date + timedelta(days=random_num_of_days)
-
-    return result.strftime("%Y-%m-%d")
-
 def random_boolean():
     return random.choice([0, 1])
 
@@ -69,8 +47,7 @@ def random_char_uppercase():
 
 def random_separator():
     separators = ['', '-', '_']
-    random_int = random.randint(0, len(separators) - 1)
-    return separators[random_int]
+    return random.choice(separators)
 
 def gen_phone_num():
     result = ''
@@ -79,49 +56,6 @@ def gen_phone_num():
             result += ' '
         result += str(random.randint(0, 9))
     return result
-
-def gen_event_date():
-    '''
-    Returns a random date from range [date of company establishment, now]. An event could be 
-    anything that happens inside the company e.g. a dismissal, completing an order etc. 
-    'YYYY-MM-DD' format, hyphen separated.
-
-    return: generated event date
-    rtype: str
-    '''
-    establishment_date = datetime(year=2002, month=1, day=28)
-    current_date = datetime.now()
-
-    time_between = current_date - establishment_date
-
-    random_num_of_days = random.randint(0, time_between.days)
-
-    result = establishment_date + timedelta(days=random_num_of_days)
-
-    return result.strftime('%Y-%m-%d')
-
-def gen_later_date(date):
-    '''
-    Returns a random date between param date and now, 'YYYY-MM-DD' format, hyphen separated.
-
-    type date: str
-    
-    return: generated date
-    rtype: str
-    '''
-    try:
-        datetime_date = datetime.strptime(date, '%Y-%m-%d')
-    except ValueError:
-        raise TypeError("Invalid input. Arg must be in of str type.")
-
-    current_date = datetime.now()
-    
-    time_between = current_date - datetime_date
-    random_num_of_days = random.randint(0, time_between.days)
-
-    result = datetime_date + timedelta(days=random_num_of_days)
-
-    return result.strftime('%Y-%m-%d')
 
 def gen_license_plate():
     '''
@@ -186,31 +120,104 @@ def gen_person():
     return result
 
 def get_random_position():
+    '''
+    Returns a random position id, excluding the CEO and Custodian.
+
+    return: random position id
+    rtype: int
+    '''
     positions = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     weights = [0.2, 0.1, 0.5, 0.3, 0.1, 0.1, 0.2, 0.1, 0.3, 0.2, 0.1, 0.1, 0.2, 0.1]
     return random.choices(positions, weights)[0]
-    # bez ceo i custodiana?
 
 def get_random_department():
+    '''
+    Returns a random department id.
+
+    rtype: int
+    '''
+    
     departments = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     weights = [0.3, 0.2, 0.23, 0.17, 0.16, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
     return random.choices(departments, weights)[0]
-    #return random.choices(positions, weights)[0]
 
-#docs
-def dates_compare(d1, d2):
-    date1 = datetime.strptime(d1, '%Y-%m-%d')
-    date2 = datetime.strptime(d2, '%Y-%m-%d')
+#Could bundle some of these together
+
+def gen_birth_date():
+    '''
+    Returns a random birth date from range [now - 120 years ago, now - 18 years ago],
+    'YYYY-MM-DD' format, hyphen separated.
+
+    return: generated birth date
+    rtype: str
+    '''
+    current_date = datetime.now()
     
-    if date1 > date2:
-        return 1
-    elif date1 < date2:
-        return -1
-    else:
-        return 0
+    start_date = current_date - timedelta(days=365 * 120) 
+    end_date = current_date - timedelta(days=365 * 18)
 
-#docs
+    time_between = end_date - start_date
+
+    random_num_of_days = random.randint(0, time_between.days)
+
+    result = start_date + timedelta(days=random_num_of_days)
+
+    return result.strftime("%Y-%m-%d")
+
+def gen_event_date():
+    '''
+    Returns a random date from range [date of company establishment, now]. An event could be 
+    anything that happens inside the company e.g. a dismissal, completing an order etc. 
+    'YYYY-MM-DD' format, hyphen separated.
+
+    return: generated event date
+    rtype: str
+    '''
+    establishment_date = datetime(year=2002, month=1, day=28)
+    current_date = datetime.now()
+
+    time_between = current_date - establishment_date
+
+    random_num_of_days = random.randint(0, time_between.days)
+
+    result = establishment_date + timedelta(days=random_num_of_days)
+
+    return result.strftime('%Y-%m-%d')
+
+def gen_later_date(date):
+    '''
+    Returns a random date between param date and now, 'YYYY-MM-DD' format, hyphen separated.
+
+    type date: str
+    
+    return: generated date
+    rtype: str
+    '''
+    try:
+        datetime_date = datetime.strptime(date, '%Y-%m-%d')
+    except ValueError:
+        raise TypeError("Invalid input. Arg must be in of str type.")
+
+    current_date = datetime.now()
+    
+    time_between = current_date - datetime_date
+    random_num_of_days = random.randint(0, time_between.days)
+
+    result = datetime_date + timedelta(days=random_num_of_days)
+
+    return result.strftime('%Y-%m-%d')
+
 def are_18_years_apart(d1, d2):
+    '''
+    Checks whether two dates are at least 18 years apart. Param dates
+    must be in 'YYYY-MM-DD' format.
+
+    return: True if the difference between d2 and d1 is at least 18 years, False otherwise.
+    rtype: bool
+    '''
+    
+    if not isinstance(d1, str) or not isinstance(d2, str):
+        raise TypeError("Invalid input. Params must be of type str.")
 
     date1 = datetime.strptime(d1, '%Y-%m-%d')
     date2 = datetime.strptime(d2, '%Y-%m-%d')
@@ -218,17 +225,6 @@ def are_18_years_apart(d1, d2):
     eighteen_years = timedelta(days=365 * 18)
 
     return date2 - date1 >= eighteen_years
-
-def to_date(date_string):
-    try:
-        # Parse the date string and create a datetime object
-        date_format = "%Y-%m-%d"
-        date_datetime = datetime.strptime(date_string, date_format)
-        # Extract the date portion and return it as a datetime.date object
-        return date_datetime.date()
-    except ValueError:
-        # Handle invalid date strings or other exceptions
-        return None
     
 def gen_2023_date():
     start_date = datetime(year=2023, month=1, day=1)
@@ -241,7 +237,6 @@ def gen_2023_date():
     result = start_date + timedelta(days=random_num_of_days)
 
     return result.strftime('%Y-%m-%d')
-
 
 def gen_order_end_date(start_date):
     '''

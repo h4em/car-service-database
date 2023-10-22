@@ -1,8 +1,3 @@
-- src folder, pomanageowac to wszystko
+- zaczac robic kwerendy, stestowac gdzie dane sa spoko gdzie cos dodac jeszce moze 
 
-- zdocsowac niektore nowe funkcje, data insertion moze uprzatnac troche
-
-- sprzatanko, zrobic plik insertujacy wszystko od zera.
-
-- nie uwzglednilem departamentow przy przypisywaniu pracownikow do zamowien
-- wiec teraz nad jednym zamowieniem pracuja pracownicy z roznych departamentow
+- plik insertujacy wszystko od zera na sam koniec

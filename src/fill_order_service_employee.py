@@ -62,7 +62,6 @@ def get_employee_id(service):
 
     return random_emp
 
-
 # Fetching list of all order id's, making a change from list of tuples to flat list.
 query = 'SELECT id FROM `Order`'
 cursor.execute(query)
@@ -101,6 +100,12 @@ connection.commit()
 
 cursor.close()
 connection.close()
+
+'''
+    Huge logic gap here sadly but fixing it would take too much time.
+    Employee department isn't taken into consideration here, so employees
+    from different departments are working on one service/order.
+'''
 
 '''
     Removing records where Order.start_date is later than Employee.employment_date
