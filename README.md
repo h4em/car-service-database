@@ -7,7 +7,7 @@ WORK IN PROGRESS
 ![](res/entity-relationship-diagram.png)
 
 ## Plots
-![](res\2023_service_frequency.png)
-![](res\car_makes_orders.png)
-![](res\dept_sizes_by_city.png)
-![](res\yearly_order_count.png)
+![](res/2023_service_frequency.png)
+![](res/car_makes_orders.png)
+![](res/dept_sizes_by_city.png)
+![](res/yearly_order_count.png)
