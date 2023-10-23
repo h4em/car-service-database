@@ -1,7 +1,6 @@
 import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
 import mysql.connector
 from db_config import DB_CONFIG
@@ -69,7 +68,6 @@ plt.xlabel('Year', fontsize=12, labelpad=14)
 plt.ylabel('Number of Orders', fontsize=12, labelpad=14)
 
 plt.xticks(fontsize=10)
-
 plt.yticks(fontsize=10)
 
 plt.legend(labels=['Order Count'], loc='best', fontsize=12)

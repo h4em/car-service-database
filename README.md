@@ -1,7 +1,16 @@
 # 🚘 Car service database 🚘
 
 ## About
-WORK IN PROGRESS
+This repo is an extension of my end-of-semester RBD (Relational Databases) class project. It's a database model for a sample car service company, and to make it more interesting, I generated some exemplary data, ported it to MySQL, and ran some data analysis on it using plain queries and Seaborn/Matplotlib.
+
+## How to use
+If you wish to use the database yourself, you can generate it by running SQL scripts:
+
+- create-tables.sql - to create tables
+- drop-tables - to drop tables
+- fill-tables.sql - to fill tables with data
+
+I used MySQL version 8.1.
 
 ## Entity-relationship diagram
 ![](res/entity-relationship-diagram.png)
