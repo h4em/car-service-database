@@ -1,167 +1,109 @@
---Wyswietl wszyskie osoby z nazwiskiem 'Nowak'
-SELECT idOsoba, imie, nazwisko 
-FROM Osoba 
-WHERE nazwisko LIKE 'Nowak';
+--Get total number of cancelled orders in 2023
+SELECT COUNT(*)
+FROM `Order`
+INNER JOIN Status ON `Order`.status = status.id
+WHERE Status.name = 'CANCELLED';
 
---Wyswietl wszystkie zamowienia ze statusem 'Oczekuje'
-SELECT * 
-FROM Zamowienie 
-WHERE status LIKE 'Oczekuje';
+--Get numbers of employees on each position in the first department
+SELECT Position.name, COUNT(*)
+FROM Position
+INNER JOIN Employee ON Position.id = Employee.position_id
+INNER JOIN Department ON Department.id = Employee.department_id
+WHERE Department.id = 1
+GROUP BY Position.name;
 
---Wyswietl wszystkich pracownikow obecnie pracujacych jeszcze w filii. 
-SELECT * 
-FROM Pracownik 
-WHERE dataZwolnienia IS NULL;
+--Get full details of the CEO
+SELECT Position.name, Person.name, Person.surname, Person.gender, Person.email, Person.phone_num, Employee.social_security_num, Employee.employment_date
+FROM Person
+INNER JOIN Employee ON Employee.id = Person.id 
+INNER JOIN Position ON Employee.position_id = Position.id
+WHERE Position.name = 'CEO';
 
---Wyswietl dane o wszystkich pracownikach
-SELECT * 
-FROM Osoba
-WHERE idOsoba IN (
-    SELECT Osoba_idOsoba 
-    FROM Pracownik 
-    WHERE Pracownik.Osoba_idOsoba = idOsoba
+--Get total number of employees in each department
+SELECT Department.id, City.name, COUNT(Employee.id)
+FROM Department
+INNER JOIN Employee ON Employee.department_id = Department.id
+INNER JOIN City ON City.id = Department.city_id
+GROUP BY Department.id, City.name;
+
+--Get total number of orders made in each year
+SELECT YEAR(`Order`.order_date), COUNT(*)
+FROM `Order`
+INNER JOIN Order_Service_Employee ON `Order`.id = Order_Service_Employee.order_id
+GROUP BY YEAR(`Order`.order_date);
+
+--Get total number of services made in 2023
+SELECT service.name, COUNT(*) AS count 
+FROM service 
+LEFT JOIN order_service_employee ON service.id = order_service_employee.service_id 
+LEFT JOIN `Order` ON order_service_employee.order_id = order.id 
+WHERE YEAR(order_date) = 2023 
+GROUP BY service.name
+ORDER BY count DESC;
+
+--Get details of employee that worked the most orders in 2023
+SELECT Employee.id, Position.name, Person.name, Person.surname, Person.email, Person.phone_num, Best_Employee.count
+FROM Employee
+INNER JOIN Person ON Employee.id = Person.id 
+INNER JOIN Position ON Employee.position_id = Position.id
+INNER JOIN (
+    SELECT employee_id, COUNT(DISTINCT order_id) AS count
+    FROM Order_Service_Employee
+    INNER JOIN `Order` ON order_service_employee.order_id = order.id 
+    WHERE YEAR(`Order`.order_date) = 2023
+    GROUP BY employee_id
+    ORDER BY count DESC
+    LIMIT 1
+) AS Best_Employee ON Employee.id = Best_Employee.employee_id;
+
+--Get details of a client that placed the most orders in 2023
+SELECT Person.id, Person.name, Person.surname, Person.phone_num, COUNT(`Order`.id) as Count
+FROM Person
+INNER JOIN Car ON Car.owner = Person.id
+INNER JOIN `Order` ON `Order`.car_id = Car.id
+WHERE YEAR(`Order`.order_date) = 2023
+GROUP BY Person.id, Person.name, Person.surname, Person.phone_num
+ORDER BY Count DESC
+LIMIT 1;
+
+--Get details of orders placed by the person who placed the most orders in 2023, save it to a table
+CREATE TABLE Best_2023_Client_Orders (
+    order_id int,
+    client_id int,
+    car_id int
 );
 
---Dla kazdego miasta wyswietl liczbe znajdujacych sie w nim serwisow
-SELECT nazwa, COUNT(*)
-FROM Miasto
-JOIN Serwis ON Miasto.idMiasto = Serwis.Miasto_idMiasto
-GROUP BY nazwa;
+INSERT INTO Best_2023_Client_Orders (order_id, client_id, car_id)
+SELECT `Order`.id AS order_id, Best_Client.id AS client_id, Car.id AS car_id
+FROM `Order`
+INNER JOIN Car ON `Order`.car_id = Car.id
+INNER JOIN (
+    SELECT Person.id AS id
+    FROM Person
+    INNER JOIN Car ON Car.owner = Person.id
+    INNER JOIN `Order` ON `Order`.car_id = Car.id
+    WHERE YEAR(`Order`.order_date) = 2023
+    GROUP BY id
+    ORDER BY COUNT(`Order`.id) DESC
+    LIMIT 1
+) AS Best_Client ON Car.owner = Best_Client.id;
 
---Wyswietl serwis swiadczacy najwiecej roznych uslug
-SELECT * 
-FROM Serwis 
-WHERE idSerwis IN (
-    SELECT Serwis_idSerwis
-    FROM Usluga_Serwis
-    GROUP BY Serwis_idSerwis
-    ORDER BY COUNT(*) FETCH FIRST 1 ROW ONLY
-);
+--Get list of employees that worked on orders placed by the best client of 2023
+SELECT Employee.id AS emp_id, Employee.department_id AS dept_id, Person.name AS emp_name, Person.surname AS emp_surname, Position.name AS position, Service.name AS service, Best_2023_Client_Orders.order_id AS order_id
+FROM Employee
+INNER JOIN Order_Service_Employee ON Order_Service_Employee.employee_id = Employee.id
+INNER JOIN Person ON Person.id = Employee.id
+INNER JOIN Service ON Service.id = Order_Service_Employee.service_id
+INNER JOIN Best_2023_Client_Orders ON Best_2023_Client_Orders.order_id = Order_Service_Employee.order_id
+INNER JOIN Position ON Position.id = Employee.position_id;
 
---Wyswietl stanowisko na ktorym zatrudnionych jest najwiecej osob. 
-SELECT nazwa
-FROM Pracownik
-JOIN Stanowisko ON Pracownik.Stanowisko_idStanowisko = Stanowisko.idStanowisko
-GROUP BY nazwa
-ORDER BY COUNT(*) DESC
-FETCH FIRST 1 ROW ONLY;
-
---Wyswietl wszystkich pracownikow na stanowisku dyrektor
-SELECT * 
-FROM Osoba, Pracownik, Stanowisko
-WHERE Pracownik.Osoba_idOsoba = Osoba.idOsoba
-AND Pracownik.Stanowisko_idStanowisko = Stanowisko.idStanowisko
-AND Stanowisko.nazwa LIKE 'Dyrektor'
-AND dataZwolnienia IS NULL;
-
---Dla kazdego serwisu wyswietl ilu pracuje w nim mechanikow
-SELECT Serwis.idSerwis, Miasto.nazwa, COUNT(*)
-FROM Serwis
-JOIN Pracownik_Serwis ON Serwis.idSerwis = Pracownik_Serwis.Serwis_idSerwis
-JOIN Pracownik ON Pracownik_Serwis.pracownik_osoba_idosoba = Pracownik.Osoba_idOsoba
-JOIN Stanowisko ON Pracownik.stanowisko_idstanowisko = Stanowisko.idStanowisko
-JOIN Miasto ON Serwis.Miasto_idmiasto = Miasto.idMiasto
-WHERE Stanowisko.nazwa LIKE 'Mechanik'
-GROUP BY Serwis.idSerwis, Miasto.nazwa
-ORDER BY Serwis.idSerwis;
-
---Dla kazdego typu auta oblicz sredni koszt swiadczonych uslug
-SELECT nazwa, AVG(cena) 
-FROM Cennik, typAuta
-WHERE Cennik.typAuta_idTyp = typAuta.idTyp
-GROUP BY nazwa;
-
---Dla kazdego serwisu podaj liczbe przeprowadzonych zamowien
-SELECT idSerwis, COUNT(*) 
-FROM Serwis, Zamowienie
-WHERE Serwis.idSerwis = Zamowienie.Serwis_idSerwis
-AND Zamowienie.status LIKE 'Zakonczona'
-GROUP BY idSerwis;
-
---Podaj imie i nazwisko klienta ktory zlozyl najwiecej zamowien
-SELECT idOsoba, imie, nazwisko
-FROM Osoba
-JOIN Klient ON Klient.Osoba_idOsoba = Osoba.idOsoba
-JOIN Auto ON Klient.Auto_idAuto = Auto.idAuto
-JOIN Zamowienie ON Zamowienie.Auto_idAuto = Auto.idAuto
-GROUP BY idOsoba, imie, nazwisko
-ORDER BY COUNT(*) ASC
-FETCH FIRST 1 ROW ONLY;
-
---Dla kazdego typu auta podaj liczbe przeprowadzonych zamowien.
-SELECT nazwa, COUNT(*) 
-FROM typAuta, Auto, Zamowienie
-WHERE Zamowienie.Auto_idAuto = Auto.idAuto 
-AND typAuta.idTyp = auto.typauta_idtyp
-GROUP BY nazwa
-ORDER BY COUNT(*) DESC;
-
---Podaj srednia liczbe pracownikow pracujacych w jednym serwisie
-SELECT ROUND(AVG(suma), 2) FROM (
-    SELECT Serwis_idSerwis, COUNT(*) AS suma
-    FROM Pracownik_Serwis
-    GROUP BY Serwis_idSerwis
-);
-
---Wyswietl najczesciej wybierana usluge
-SELECT nazwa
-FROM Usluga
-JOIN Zamowienie ON Zamowienie.usluga_idusluga = Usluga.idUsluga
-GROUP BY nazwa
-ORDER BY COUNT(*) DESC
-FETCH FIRST 1 ROW ONLY;
-
---Wyswietl imie i nazwisko pracownika z najdluzszym stazem
-SELECT imie, nazwisko 
-FROM Osoba, Pracownik
-WHERE Pracownik.Osoba_idOsoba = Osoba.idOsoba
-AND dataZatrudnienia = (
-    SELECT MAX(dataZatrudnienia)
-    FROM Pracownik
-);
-
---Wyswietl typ auta dla ktorego sredni koszt uslugi przekracza 1000zl
-SELECT nazwa, AVG(cena) 
-FROM Cennik, typAuta
-WHERE Cennik.typAuta_idTyp = typAuta.idTyp
-GROUP BY nazwa 
-HAVING AVG(cena) > 1000.00;
-
---Wyswietl imiona i nazwiska mechanikow ktorzy przeprowadzili conajmniej 1 naprawe
-SELECT DISTINCT Osoba.idOsoba, imie, nazwisko 
-FROM Osoba, Pracownik
-WHERE Pracownik.Osoba_idOsoba = Osoba.idOsoba 
-AND Osoba.idOsoba IN (
-    SELECT Pracownik_Osoba_idOsoba FROM Zamowienie
-)
-ORDER BY Osoba.idOsoba ASC;
-
---Wyswietl serwisy w ktorych liczba przeprowadzanych uslug jest wieksza od sredniej.
-SELECT Serwis.idSerwis, Miasto.nazwa
-FROM Serwis, Miasto
-WHERE Serwis.Miasto_idMiasto = Miasto.idMiasto
-AND Serwis.idSerwis IN (
-    SELECT Serwis_idSerwis
-    FROM Usluga_Serwis
-    GROUP BY Serwis_idSerwis
-    HAVING COUNT(*) > (
-        SELECT AVG(countUslugi)
-        FROM (
-            SELECT Serwis_idSerwis, COUNT(*) AS countUslugi
-            FROM Usluga_Serwis
-            GROUP BY Serwis_idSerwis
-        )
-    )
-);
-
---Wyswietl typ auta dla ktorego najczesciej byly przeprowadzane uslugi
-SELECT typAuta.nazwa
-FROM typAuta 
-WHERE idTyp = (
-    SELECT typAuta_idTyp
-    FROM Auto
-    JOIN Zamowienie ON Zamowienie.Auto_idAuto = Auto.idAuto 
-    GROUP BY typAuta_idTyp
-    ORDER BY COUNT(*) DESC
-    FETCH FIRST 1 ROW ONLY
-);
+--11Get the total cost of orders placed by the best client of 2023
+--lista pracownikow ktora opuscila firme w pazdzierniku 2023
+--stanowiska/liczba zatrudnionych na nich osob
+--dla kazdego departamentu ilosc mechanikow
+--najdrozsze zamowienie z pazdziernika 2023
+--dla kazdego departamentu liczbe przeprowadzonych zamowien w 2023 roku
+--najmlodszy i najstarszy pracownik
+--srednia liczba przeprowadzonych uslug dla departamentu, wyswietl te ponizej sredniej
+--cos z plciami klientow/pracownikow
+--cos z autami
