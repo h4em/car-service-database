@@ -6,9 +6,9 @@ This repo is an extension of my end-of-semester RBD (Relational Databases) class
 ## How to use
 If you wish to use the database yourself, you can generate it by running SQL scripts:
 
-- '''create-tables.sql''' - to create tables
-- '''drop-tables.sql''' - to drop tables
-- '''fill-tables.sql''' - to insert data
+- `create-tables.sql` - to create tables
+- `drop-tables.sql` - to drop tables
+- `fill-tables.sql` - to insert data
 
 I used MySQL version 8.1.
 
