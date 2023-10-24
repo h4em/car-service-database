@@ -97,13 +97,49 @@ INNER JOIN Service ON Service.id = Order_Service_Employee.service_id
 INNER JOIN Best_2023_Client_Orders ON Best_2023_Client_Orders.order_id = Order_Service_Employee.order_id
 INNER JOIN Position ON Position.id = Employee.position_id;
 
---11Get the total cost of orders placed by the best client of 2023
---lista pracownikow ktora opuscila firme w pazdzierniku 2023
---stanowiska/liczba zatrudnionych na nich osob
---dla kazdego departamentu ilosc mechanikow
+--Get list of employees that left the company in october of 2023
+SELECT emp.id, person.name, person.surname, position.name, emp.department_id, emp.leave_date
+FROM Employee AS emp
+INNER JOIN Person ON emp.id = person.id
+INNER JOIN Position on emp.position_id = position.id
+WHERE YEAR(leave_date) = 2023 AND MONTH(leave_date) = 10;
+
+--Get employee count for every position 
+SELECT Position.name, COUNT(*) AS count
+FROM Position
+INNER JOIN Employee ON Position.id = Employee.position_id
+GROUP BY Position.name
+ORDER BY count DESC;
+
+--For every department get number of employed 'Car mechanics'
+SELECT Department.id, City.name AS city, COUNT(*) AS count
+FROM Department
+INNER JOIN Employee ON Employee.department_id = Department.id
+INNER JOIN Position ON Position.id = Employee.position_id
+INNER JOIN City ON City.id = Department.city_id
+WHERE Position.name = 'Car mechanic'
+GROUP BY Department.id, city
+ORDER BY count DESC;
+
+--Get full details about the eldest worker
+SELECT emp.id, pos.name, emp.employment_date, person.name, person.surname, person.gender, person.email, person.phone_num
+FROM Employee AS emp
+INNER JOIN Person ON Person.id = emp.id
+INNER JOIN Position AS pos ON pos.id = emp.position_id
+WHERE emp.employment_date = (SELECT MIN(employment_date) FROM Employee);
+
+--Get the average numbers of orders per employee
+SELECT AVG(orders_count)
+FROM (
+    SELECT Employee.id, COUNT(DISTINCT order_id) AS orders_count
+    FROM Employee
+    INNER JOIN Order_Service_Employee ON Order_Service_Employee.employee_id = Employee.id
+    GROUP BY Employee.id
+) AS Employee_Count_Of_Orders;
+
+--5left
+--Get the total cost of orders placed by the best client of 2023
 --najdrozsze zamowienie z pazdziernika 2023
---dla kazdego departamentu liczbe przeprowadzonych zamowien w 2023 roku
---najmlodszy i najstarszy pracownik
---srednia liczba przeprowadzonych uslug dla departamentu, wyswietl te ponizej sredniej
+--wylicz srednia przeprowadzonych uslug na 1 pracownika
 --cos z plciami klientow/pracownikow
 --cos z autami
