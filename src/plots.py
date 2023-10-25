@@ -140,5 +140,36 @@ plt.xticks(rotation=45, fontsize=12)
 
 plt.show()
 
+#Barplot of employee distributions across all departments
+query = '''
+    SELECT Position.name, COUNT(*) AS count
+    FROM Position
+    INNER JOIN Employee ON Position.id = Employee.position_id
+    GROUP BY Position.name
+    ORDER BY count DESC;
+'''
+cursor.execute(query)
+
+data = cursor.fetchall()
+
+df = pd.DataFrame(data, columns=['pos', 'emp_count'])
+
+sns.set(style='whitegrid')
+
+plt.figure(figsize=(8, 6))  
+ax = sns.barplot(x='pos', y='emp_count', data=df, palette='crest', hue='pos', legend=False)
+
+plt.title('Distribution of employees across all departments', fontsize=16, pad= 14)
+plt.xlabel('Year', labelpad=14, fontsize=14)
+plt.ylabel('Number of Orders', labelpad=14, fontsize=14)
+
+ax.set(xlabel='Position', ylabel='Employee count')
+
+ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right')
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+
+plt.show()
+
 cursor.close()
 connection.close()

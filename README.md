@@ -18,5 +18,6 @@ I used MySQL version 8.1.
 ## Plots
 ![](res/2023_service_frequency.png)
 ![](res/car_makes_orders.png)
+![](res/emp_pos_distribution.png)
 ![](res/dept_sizes_by_city.png)
 ![](res/yearly_order_count.png)
