@@ -128,6 +128,16 @@ INNER JOIN Person ON Person.id = emp.id
 INNER JOIN Position AS pos ON pos.id = emp.position_id
 WHERE emp.employment_date = (SELECT MIN(employment_date) FROM Employee);
 
+--Get employee gender distribution for every department
+SELECT Department.id, City.name,
+    SUM(Person.gender = 1) AS male_emp_count,
+    SUM(Person.gender = 0) AS female_emp_count
+FROM Employee
+INNER JOIN Person ON Person.id = Employee.id
+INNER JOIN Department ON Department.id = Employee.department_id
+INNER JOIN City ON City.id = Department.city_id
+GROUP BY Department.id, City.name;
+
 --Get the average numbers of orders per employee
 SELECT AVG(orders_count)
 FROM (
@@ -137,9 +147,61 @@ FROM (
     GROUP BY Employee.id
 ) AS Employee_Count_Of_Orders;
 
---5left
 --Get the total cost of orders placed by the best client of 2023
---najdrozsze zamowienie z pazdziernika 2023
---wylicz srednia przeprowadzonych uslug na 1 pracownika
---cos z plciami klientow/pracownikow
---cos z autami
+SELECT SUM(Service.price) AS total_cost 
+FROM Service
+INNER JOIN Order_Service_Employee ON Order_Service_Employee.service_id = Service.id
+WHERE Order_Service_Employee.order_id IN (
+    SELECT order_id 
+    FROM Best_2023_Client_Orders
+);
+
+--Get full details about the most expensive order of october 2023
+CREATE TABLE Most_Expensive_Order_10_2023 (
+    order_id int,
+    total_cost decimal(11,2)
+);
+
+INSERT INTO Most_Expensive_Order_10_2023 (order_id, total_cost)
+SELECT ose.order_id, SUM(Service.price) AS total_cost
+FROM Order_Service_Employee AS ose
+INNER JOIN Service ON Service.id = ose.service_id
+INNER JOIN `Order` ON `Order`.id = ose.order_id
+WHERE YEAR(`Order`.order_date) = 2023 AND MONTH(`Order`.order_date) = 10
+GROUP BY ose.order_id
+ORDER BY total_cost DESC
+LIMIT 1;
+
+SELECT ose.order_id, `Order`.order_date, Service.name, Service.price, Car.make, Car.model, Car.license_plate, Person.name, Person.surname, Person.email, Person.phone_num
+FROM Order_Service_Employee AS ose
+INNER JOIN Most_Expensive_Order_10_2023 ON Most_Expensive_Order_10_2023.order_id = ose.order_id
+INNER JOIN Service ON Service.id = ose.service_id
+INNER JOIN `Order` ON `Order`.id = ose.order_id
+INNER JOIN Car ON Car.id = `Order`.car_id
+INNER JOIN Person ON Person.id = Car.owner;
+
+--For each year get the most picked service
+CREATE TABLE Order_Service_Count (
+    year int,
+    service_name varchar(48),
+    service_count int
+);
+
+INSERT INTO Order_Service_Count (year, service_name, service_count) 
+SELECT
+    YEAR(`Order`.order_date) AS year,
+    Service.name AS service_name,
+    COUNT(*) AS service_count
+FROM `Order`
+JOIN Order_Service_Employee AS ose ON `Order`.id = ose.order_id
+JOIN Service ON ose.service_id = Service.id
+GROUP BY year, service_name
+ORDER BY year, service_count DESC;
+
+SELECT year, service_name, service_count
+FROM order_service_count
+WHERE (year, service_count) IN (
+    SELECT year, MAX(service_count)
+    FROM order_service_count
+    GROUP BY year
+);
