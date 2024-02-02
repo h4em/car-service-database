@@ -9,7 +9,7 @@ If you wish to use the database yourself, checkout the files with `.sql` extensi
 ## Purpose
 The main goal of this project was to make use of all the knowledge gained during the semester, covering topics like:
 
-- database modelling with [Vertabelo](https://vertabelo.com/)
+- database modelling
 - using various DBMS and SQL dialects
 - elements of T-SQL & PL/SQL
 - plain SQL
