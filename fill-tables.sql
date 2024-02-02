@@ -43,7 +43,7 @@ VALUES (1, 1, 'al. Na Skarpie 46'),
 	(12, 9, 'Bagatela 34'),
 	(13, 10, 'Wilczy Dol 30');
 
-INSERT INTO Person (id, name, surname, gender, email, phone_num)
+INSERT INTO Osoba (id, imie, nazwisko, plec, email, nr_tel)
 VALUES (1, 'Owidiusz', 'Tanowski', 1, 'owidiusz_tanowski327@email.com', '405 187 397'),
 	(2, 'Dzem', 'Niemasz', 1, 'dzem-niemasz132@email.com', '686 433 079'),
 	(3, 'Dargoslaw', 'Ciepala', 1, 'dargoslawciepala770@email.com', '046 264 381'),
@@ -3070,7 +3070,7 @@ VALUES (1, 595, '2002-01-31', '2002-04-10', 1),
 	(1279, 462, '2023-10-20', NULL, 3),
 	(1280, 386, '2023-10-20', NULL, 3);
 
-INSERT INTO Service (id, name, price)
+INSERT INTO Usluga (id, nazwa, cena)
 VALUES (1, 'Oil change', 30.00),
 	(2, 'Synthetic oil change', 65.50),
 	(3, 'Tire rotation and balance', 50.00),
@@ -3092,7 +3092,7 @@ VALUES (1, 'Oil change', 30.00),
 	(19, 'Windshield replacement', 250.00),
 	(20, 'Towing service (per km)', 5.00);
 
-INSERT INTO Order_Service_Employee (order_id, service_id, employee_id)
+INSERT INTO Zamowienie_Usluga_Pracownik (zamowienie_id, usluga_id, pracownik_id)
 VALUES (180, 6, 1),
 	(210, 12, 1),
 	(217, 13, 1),
