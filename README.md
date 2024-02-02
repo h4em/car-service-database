@@ -1,7 +1,20 @@
 # Car service database
 
+> Relational database project with Python integration and plotting, PL/SQL and T-SQL.
+
 ## About
-This repo showcases an extension to my end-of-semester RBD (Relational databases) class project. It's a database model for a sample car service company, and to make it more interesting, I generated some exemplary data, ported it to MySQL and analyzed it with queries and Seaborn/Matplotlib. If you wish to use the database yourself, checkout the files with `.sql` extension.
+This repo showcases my end-of-semester RBD (Relational databases) class project.
+If you wish to use the database yourself, checkout the files with `.sql` extension.
+
+## Purpose
+The main goal of this project was to make use of all the knowledge gained during the semester, covering topics like:
+
+- database modelling with [Vertabelo](https://vertabelo.com/)
+- using various DBMS and SQL dialects
+- elements of T-SQL & PL/SQL
+- plain SQL
+
+I expanded on it, integrating it with Python for data generation and plotting ([Seaborn](https://seaborn.pydata.org/), [Matplotlib](https://matplotlib.org/) modules).
 
 ## Tech used
 
@@ -13,7 +26,6 @@ This repo showcases an extension to my end-of-semester RBD (Relational databases
     <img src="res/oracle-logo.png" alt="oracle" height="48">
     <img src="res/mssqlserver-logo.webp" alt ="mssqlserver" width="48" height="48">
 </p>
-
 
 ## Entity-relationship diagram
 ![](res/entity-relationship-diagram.png)
