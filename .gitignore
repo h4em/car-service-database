@@ -1,3 +1,15 @@
-src/__pycache__
+dbprac/__pycache__
 src/db_config.py
 TODO.md
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+
+
+dbprac/.env
+
+mypackage.egg-info/
