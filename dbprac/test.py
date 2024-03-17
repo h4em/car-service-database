@@ -21,3 +21,7 @@ def main():
 #     mypackage()
 
 # https://click.palletsprojects.com/en/8.1.x/
+    
+# postgres, mysql, slqite, oracle, mssql server, maria db support
+    
+# https://martinheinz.dev/blog/28

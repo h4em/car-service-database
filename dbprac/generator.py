@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from unidecode import unidecode
 
 from db.models import Person
+from db.models import Employee
 
 class Generator():
     def __init__(self):
@@ -37,12 +38,10 @@ class Generator():
         phone_num = random.choice([None, self.fake.numerify(text='### ### ###')])
         email = self.random_email(f_name, l_name)    
 
-        birth_date_time = self.fake.date_time_between(datetime(1945, 5, 8), datetime.now() - timedelta(days=18*365))        
-        
-        pesel = self.fake.pesel(birth_date_time, sex)    
-        birth_date_str = birth_date_time.strftime('%Y-%m-%d')
-
         return Person(f_name, l_name, sex, phone_num, email)
+    
+    def make_employee(self, person: Person) -> Employee:
+        return
 
 gen = Generator()
 for _ in range(0, 101):
