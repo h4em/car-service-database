@@ -1,11 +1,11 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-from .base import Base
+from base import Base
 
 class Department(Base):
     __tablename__ = 'department'
-    
+
     id = Column(Integer, primary_key=True)
     street_address = Column(String(32))
     city = Column(String(16), index=True)
