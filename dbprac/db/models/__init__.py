@@ -1,4 +1,7 @@
-from .person import Person
+from .base import Base
+from .car import Car
+from .department import Department
 from .employee import Employee
-
-# import the rest of the  models
+from .order import Order, Order_Service_Employee, Status, Service
+from .person import person
+from .position import Position
