@@ -1,6 +1,6 @@
 # Car service database
 
-> Relational database project with Python integration and plotting, PL/SQL and T-SQL.
+> Python package that generates a sample database for various database engines.
 
 ## About
 This repo showcases my end-of-semester RBD (Relational databases) class project.
