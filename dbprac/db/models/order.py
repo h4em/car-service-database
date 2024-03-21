@@ -1,8 +1,8 @@
-from sqlalchemy import  Column, Integer, String, Date, Float, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, Date, Float, ForeignKey
 
-from base import Base
+from .base import Base
 
+# Change class name!!!
 class Order(Base):
     __tablename__ = 'order'
 
@@ -12,8 +12,6 @@ class Order(Base):
     end_date = Column(Date, nullable=True)
     status = Column(Integer, ForeignKey('status.id'))
     
-    car = relationship("Car")
-    status_name = relationship("Status")
 
 class Order_Service_Employee(Base):
     __tablename__ = 'order_service_employee'
@@ -22,10 +20,6 @@ class Order_Service_Employee(Base):
     service_id = Column(Integer, ForeignKey('service.id'), primary_key=True)
     employee_id = Column(Integer, ForeignKey('employee.id'), primary_key=True)
     
-    order = relationship("Order")
-    service = relationship("Service")
-    employee = relationship("Employee")
-
 class Service(Base):
     __tablename__ = 'service'
     id = Column(Integer, primary_key=True)

@@ -1,5 +1,4 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import relationship
 
 from .base import Base
 
@@ -12,8 +11,6 @@ class Person(Base):
     sex = Column(String)
     email = Column(String, unique=True)
     phone_num = Column(String, unique=True, nullable=True)
-
-    employee = relationship(back_populates='person')
 
     def __init__(self, f_name: str, l_name: str, sex: str, phone_num: str, email: str):
         self.f_name = f_name

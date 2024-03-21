@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
 
-from base import Base
+from .base import Base
 
 class Car(Base):
     __tablename__ = 'car'
@@ -12,6 +11,3 @@ class Car(Base):
     make = Column(String(16))
     model = Column(String(32))
     year = Column(Integer)
-    mileage = Column(Integer)
-    
-    person = relationship("Person", back_populates="cars")

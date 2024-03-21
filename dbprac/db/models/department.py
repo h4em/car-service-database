@@ -1,7 +1,6 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String
 
-from base import Base
+from .base import Base
 
 class Department(Base):
     __tablename__ = 'department'
@@ -11,4 +10,5 @@ class Department(Base):
     city = Column(String(16), index=True)
     post_code = Column(String(6))
     
-    employees = relationship("Employee", back_populates="department")
+    def __str__(self):
+        return f"Department(id={self.id}, street_address='{self.street_address}', city='{self.city}', post_code='{self.post_code}')"
