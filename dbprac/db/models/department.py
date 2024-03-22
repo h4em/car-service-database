@@ -4,8 +4,8 @@ from .base import Base
 
 class Department(Base):
     __tablename__ = 'department'
-
-    id = Column(Integer, primary_key=True)
+    
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     street_address = Column(String(32))
     city = Column(String(16), index=True)
     post_code = Column(String(6))
