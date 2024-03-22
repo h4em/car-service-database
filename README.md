@@ -25,7 +25,7 @@ I expanded on it, integrating it with Python for data generation and plotting ([
     <img src="res/mysql-logo.png" alt="mysql" width="48" height="48">
     <img src="res/oracle-logo.png" alt="oracle" height="48">
     <img src="res/mssqlserver-logo.webp" alt ="mssqlserver" width="48" height="48">
-    <img src="res/requests-logo.webp" alt ="mssqlserver" width="48" height="48">
+    <img src="res/requests-logo.webp" alt ="requests" width="48" height="48">
 </p>
 
 ## Entity-relationship diagram
