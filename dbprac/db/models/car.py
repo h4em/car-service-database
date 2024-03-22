@@ -11,3 +11,11 @@ class Car(Base):
     make = Column(String(16))
     model = Column(String(32))
     year = Column(Integer)
+
+    def __str__(self):
+        return (f"Car(id={self.id}, "
+                f"owner={self.owner}, "
+                f"year={self.year}, "
+                f"make='{self.make}', "
+                f"model='{self.model}', "
+                f"license_plate='{self.license_plate})")
