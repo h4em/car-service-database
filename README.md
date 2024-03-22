@@ -1,4 +1,4 @@
-# Car service database
+# dbprac
 
 > Python package that generates a sample database for various database engines.
 
@@ -20,17 +20,17 @@ I expanded on it, integrating it with Python for data generation and plotting ([
 
 <p align="center">
     <img src="res/python-logo.png" alt="python" width="56" height="56">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <img src="res/sqlalchemy.svg" alt ="sqlalchemy" height="64" style="margin-right: 16px;">&nbsp;&nbsp;&nbsp;&nbsp;
-    <img src="res/requests-logo.webp" alt ="requests" height="64" style="margin-right: 16px;">&nbsp;&nbsp;&nbsp;&nbsp;
-    <img src="res/faker-logo.png" alt ="faker" height="64" style="margin-right: 16px;">&nbsp;&nbsp;&nbsp;&nbsp;
-    <img src="res/click-logo.webp" alt ="click" height="56" style="margin-right: 16px;">&nbsp;&nbsp;&nbsp;&nbsp;
+    <img src="res/sqlalchemy.svg" alt ="sqlalchemy" height="64">&nbsp;&nbsp;&nbsp;&nbsp;
+    <img src="res/requests-logo.webp" alt ="requests" height="64">&nbsp;&nbsp;&nbsp;&nbsp;
+    <img src="res/faker-logo.png" alt ="faker" height="64">&nbsp;&nbsp;&nbsp;&nbsp;
+    <img src="res/click-logo.webp" alt ="click" height="56">&nbsp;&nbsp;&nbsp;&nbsp;
     <br>
     <img src="res/seaborn-logo.png" alt="seaborn" width="56" height="56">&nbsp;&nbsp;&nbsp;&nbsp;
     <img src="res/matplotlib-logo.png" alt="matplotlib" width="56" height="56">
 </p>
 
 ## Entity-relationship diagram
-![](res/entity-relationship-diagram.png)
+![](res/erd.png)
 
 ## Plots
 ![](res/2023_service_frequency.png)
