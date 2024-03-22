@@ -19,13 +19,14 @@ I expanded on it, integrating it with Python for data generation and plotting ([
 ## Tech used
 
 <p align="center">
-    <img src="res/python-logo.png" alt="python" width="48" height="48">
+    <img src="res/python-logo.png" alt="python" width="64" height="64">
+    <img src="res/sqlalchemy.svg" alt ="requests" height="64">
+    <img src="res/faker-logo.png" alt ="requests" height="64">
+    <img src="res/click-logo.webp" alt ="requests" height="64">
+    <img src="res/requests-logo.webp" alt ="requests" height="64">
+    <p> | </p>
     <img src="res/seaborn-logo.png" alt="seaborn" width="48" height="48">
     <img src="res/matplotlib-logo.png" alt="matplotlib" width="48" height="48">
-    <img src="res/mysql-logo.png" alt="mysql" width="48" height="48">
-    <img src="res/oracle-logo.png" alt="oracle" height="48">
-    <img src="res/mssqlserver-logo.webp" alt ="mssqlserver" width="48" height="48">
-    <img src="res/requests-logo.webp" alt ="requests" width="48" height="48">
 </p>
 
 ## Entity-relationship diagram
